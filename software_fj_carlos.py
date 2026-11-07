@@ -13,6 +13,12 @@ logging.basicConfig(
     encoding="utf-8",
 )
 
+def formatear_cop(valor: float) -> str:
+    """Da formato de pesos colombianos (COP): 50000 -> $50.000 COP."""
+    texto = f"{valor:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+    if texto.endswith(",00"):
+        texto = texto[:-3]
+    return f"${texto} COP"
 
 # ==========================================================
 # 2. EXCEPCIONES PERSONALIZADAS
@@ -500,7 +506,7 @@ def main():
     # --- Clientes ---
     ejecutar_operacion(1, "Registro VÁLIDO de cliente",
         lambda: g.registrar_cliente("C001", "Carlos Sierra",
-                                    "carlos.sierra@unad.edu.co", "3101234567").obtener_detalles())
+                                    "casierracard@unadvirtual.edu.co", "3202210214").obtener_detalles())
     ejecutar_operacion(2, "Registro INVÁLIDO de cliente (correo sin arroba)",
         lambda: g.registrar_cliente("C002", "Ana Gómez", "correo-sin-arroba.com", "3209876543"))
     ejecutar_operacion(3, "Registro INVÁLIDO de cliente (nombre faltante y teléfono corto)",
